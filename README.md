@@ -73,6 +73,6 @@ If you don't feel like reading, Laracasts can help. Laracasts contains over 2000
 This project exists thanks to all the people who contribute:<br>
   - Anaïs -- https://github.com/Anais-RV<br>
   - Madelaine -- https://github.com/Madelainepereira<br>
-  - Maite -- <br>
+  - Maite -- https://github.com/MaiPresa<br>
   - Miriam -- https://github.com/MiriamVarela<br>
   - Sara -- https://github.com/Sara-Poyo-Pastor
