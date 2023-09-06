@@ -14,7 +14,7 @@ class RolController extends Controller
     {
         $roles = Rol::all();
         // return view('roles.index', compact('roles') ); // -> envia un array con todos los roles a la vista roles.index
-        // return response()->json($roles); // -> devuelve un json 
+        return response()->json($roles); // -> devuelve un json 
 
     }
 
@@ -23,7 +23,7 @@ class RolController extends Controller
      */
     public function create()
     {
-        //
+        // return view('roles.create'); -> devuelve una vista al formulario que "recoge" los datos para su posterior tratamiento (store)
     }
 
     /**
@@ -31,7 +31,17 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([ // array asociativo que recibe gracias al formulario
+            'nombre_roles' => 'required|string|max:255|unique:roles',  // validación de los datos del campo o campos
+        ]);
+
+        $rol = new Rol; // instancio el la clase rol y creo un nuevo objeto ()
+        $rol->nombre_roles = $request->nombre_roles;
+
+        $rol->save(); // guardo esa instancia en la tabla de la bbdd
+
+        //return redirect()->route('DONDELOQUERAMOSMANDAR')->with('success', 'Nuevo rol creado'); // página con mensaje de éxito
+
     }
 
     /**
@@ -39,7 +49,10 @@ class RolController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $rol = Rol::findOrFail($id); // Encuentra o ¡MUERE! Si muere, muestra generalmente error 404 ("no encontrado")
+
+        //return view('roles.show', compact('rol')); // Retorno a la vista roles.show - envío los datos en la vble (objeto) rol
+
     }
 
     /**
@@ -47,7 +60,13 @@ class RolController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $rol = Rol::findOrFail($id); // buscamos el rol
+
+        // if(!$rol) {
+        //     return redirect()->route('roles.index')->with('error', 'No se encuentra este Rol.'); // sino existe, mostramos error
+        // }
+
+        return view('roles.edit', compact('rol')); //mandamos el rol a la vista editar, un formulario prellenado con los datos a modificar (luego se guardarían con update)
     }
 
     /**
@@ -55,7 +74,19 @@ class RolController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nombre_roles' => 'required|string|max:255' // validación del campo
+        ]);
+
+        $rol = Rol::find($id); // busco el rol por id y lo almaceno en la vble rol
+        if (!$rol){
+            return redirect()->route('roles.index')->with('error', 'No se encuentra este Rol'); 
+        }
+
+        $rol->nombre_roles = $request->nombre_roles; // actualizo los datos del objeto en el atributo indicado
+        $rol->save();
+
+        return redirect()->route('roles.index')->with('success', 'Se ha actualizado el Rol');
     }
 
     /**
@@ -63,6 +94,14 @@ class RolController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $rol = Rol::find($id); //buscamos la id
+
+        if (!$rol){
+            return redirect()->route('roles.index')->with('error', 'No se ha encontrado este Rol'); //verificamos si existe, sino lanzamos error
+        }
+
+        $rol->delete(); // si exite lo borramos
+
+        return redirect()->route('roles.index')->with('success', 'Se ha eliminado el Rol'); //redirigimos al index al usuario (lista de roles, con un mensaje de éxito
     }
 }
