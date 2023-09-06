@@ -10,13 +10,14 @@ class Usuario extends Model
     use HasFactory;
 
     public $timestamps = false; 
+    protected $primaryKey = 'id_usuarios';
 
 public function roles () {
-    return $this->belongsTo(roles::class, 'id_rol');
+    return $this->belongsTo(Roles::class, 'id_rol');
 }
 
 public function pedidos() {
-    return $this->hasMany(pedidos::class, 'id_usuario');
+    return $this->hasMany(Pedidos::class, 'id_usuario');
 }
 
 }

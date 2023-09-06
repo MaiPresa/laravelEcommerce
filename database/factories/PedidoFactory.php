@@ -17,13 +17,14 @@ class PedidoFactory extends Factory
     public function definition()
     {
         $estados = ['enviado', 'preparando', 'entregado', 'cancelado'];
-        $usuarioExistente = Usuario::inRandomOrder()->first();
+        $usuarioExistente = Usuario::inRandomOrder()->firstOrFail(); 
 
         return [
-            'id_usuarios' => $usuarioExistente->id_usuarios,
-            'fecha_pedido' => $this->faker->date(),
+            'id_usuario' => $usuarioExistente->id_usuarios,
+            'fecha_pedido' => $this->faker->dateTimeThisYear(), 
             'precio_total' => $this->faker->randomFloat(2, 5, 1000),
             'estado' => Arr::random($estados)
         ];
     }
 }
+

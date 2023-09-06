@@ -10,6 +10,6 @@ class Categoria extends Model
     use HasFactory;
 
 public function platos (){
-    return $this->hasMany(platos::class, 'id_categoria');
+    return $this->hasMany(Platos::class, 'id_categoria');
 }
 }
