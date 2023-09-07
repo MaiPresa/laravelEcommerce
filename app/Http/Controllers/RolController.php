@@ -51,6 +51,8 @@ class RolController extends Controller
     {
         $rol = Rol::findOrFail($id); // Encuentra o ¡MUERE! Si muere, muestra generalmente error 404 ("no encontrado")
 
+        return response()->json($rol);
+
         //return view('roles.show', compact('rol')); // Retorno a la vista roles.show - envío los datos en la vble (objeto) rol
 
     }
