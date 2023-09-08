@@ -9,7 +9,10 @@ class Categoria extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id_categoria';
+    public $timestamps = false;
+
 public function platos (){
-    return $this->hasMany(Platos::class, 'id_categoria');
+    return $this->hasMany(Plato::class, 'id_categoria');
 }
 }
