@@ -11,9 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plato_pedido', function (Blueprint $table) {
+        Schema::create('pedido_plato', function (Blueprint $table) {
             $table->unsignedBigInteger('id_pedido');
             $table->unsignedBigInteger('id_plato');
+
+            // FK
+            $table->foreign('id_pedido')->references('id_pedido')->on('pedidos');
+            $table->foreign('id_plato')->references('id_plato')->on('platos');
+
+            // PK
+            $table->primary(['id_pedido', 'id_plato']);
+            
             $table->integer('cantidad_platos');
         });
     }
@@ -23,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plato_pedido');
+        Schema::dropIfExists('pedido_plato');
     }
 };

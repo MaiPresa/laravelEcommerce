@@ -14,8 +14,8 @@ class PedidosTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('pedidos')->insert([
-            ['id_usuarios' => 1, 'fecha_pedido' => now(), 'precio_total' => 15.0, 'estado' => 'enviado'],
-            ['id_usuarios' => 2, 'fecha_pedido' => now(), 'precio_total' => 20.0, 'estado' => 'preparando'],
+            ['id_usuario' => 1, 'fecha_pedido' => now(), 'precio_total' => 15.0, 'estado' => 'enviado'],
+            ['id_usuario' => 2, 'fecha_pedido' => now(), 'precio_total' => 20.0, 'estado' => 'preparando'],
         ]);
     }
 }
