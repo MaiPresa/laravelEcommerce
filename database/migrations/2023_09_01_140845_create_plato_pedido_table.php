@@ -21,7 +21,6 @@ return new class extends Migration
 
             // PK
             $table->primary(['id_pedido', 'id_plato']);
-            
             $table->integer('cantidad_platos');
         });
     }

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     use HasFactory;
+    public $timestamps = false; 
+    protected $primaryKey = 'id_categoria';
 
     protected $primaryKey = 'id_categoria';
     public $timestamps = false;

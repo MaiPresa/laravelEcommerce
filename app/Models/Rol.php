@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class Rol extends Model
 {
     use HasFactory;
+    public $timestamps = false; 
+    protected $primaryKey = 'id_roles';
+    protected $table = 'roles';
 
     protected $table = 'roles'; //sino se lo indica por convención laravel usa el plural de rol -> rols XD
     protected $primaryKey = 'id_roles';

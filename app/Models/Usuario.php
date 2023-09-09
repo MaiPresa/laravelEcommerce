@@ -18,6 +18,7 @@ public function roles () {
 
 public function pedidos() {
     return $this->hasMany(Pedido::class, 'id_usuario');
+    return $this->hasMany(Pedido::class, 'id_usuario');
 }
 
 }
