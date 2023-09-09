@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     use HasFactory;
+    public $timestamps = false; 
+    protected $primaryKey = 'id_categoria';
 
 public function platos (){
-    return $this->hasMany(Platos::class, 'id_categoria');
+    return $this->hasMany(Plato::class, 'id_categoria');
 }
 }
