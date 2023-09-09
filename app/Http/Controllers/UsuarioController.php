@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Usuario;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UsuarioController extends Controller
 {
