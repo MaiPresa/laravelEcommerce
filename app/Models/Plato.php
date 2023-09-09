@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Plato extends Model
 {
     use HasFactory;
+    public $timestamps = false; 
+    protected $primaryKey = 'id_plato';
+
+    protected $primaryKey = 'id_plato';
+    public $timestamps = false;
 
     public $timestamps = false; 
     protected $primaryKey = 'id_plato';

@@ -13,7 +13,7 @@ class Usuario extends Model
     protected $primaryKey = 'id_usuarios';
 
 public function roles () {
-    return $this->belongsTo(Role::class, 'id_rol');
+    return $this->belongsTo(Rol::class, 'id_rol');
 }
 
 public function pedidos() {
