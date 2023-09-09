@@ -11,6 +11,9 @@ class Categoria extends Model
     public $timestamps = false; 
     protected $primaryKey = 'id_categoria';
 
+    protected $primaryKey = 'id_categoria';
+    public $timestamps = false;
+
 public function platos (){
     return $this->hasMany(Plato::class, 'id_categoria');
 }
