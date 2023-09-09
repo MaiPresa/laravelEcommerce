@@ -2,107 +2,82 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use Illuminate\Http\Request;
-use App\Models\Pedidos;
 
-class PedidosController extends Controller{
+class PedidoController extends Controller
+{
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $roles = Rol::all();
-        // return view('roles.index', compact('roles') ); // -> envia un array con todos los roles a la vista roles.index
-        return response()->json($roles); // -> devuelve un json 
-
+        $pedidos = Pedido::all();
+        return response()->json($pedidos);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        // return view('roles.create'); -> devuelve una vista al formulario que "recoge" los datos para su posterior tratamiento (store)
+        // return view('usuarios.create);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request->validate([ // array asociativo que recibe gracias al formulario
-            'nombre_roles' => 'required|string|max:255|unique:roles',  // validación de los datos del campo o campos
+        $request->validate([
+            'id_usuario' => 'required|integer',
+            'fecha_pedido' => 'required|date',
+            'precio_total' => 'required|numeric',
+            'estado' => 'required|in:enviado,preparando,entregado,cancelado',
         ]);
+    
+        $pedido = new Pedido();
+        $pedido->id_usuario = $request->id_usuario;
+        $pedido->fecha_pedido = $request->fecha_pedido;
+        $pedido->precio_total = $request->precio_total;
+        $pedido->estado = $request->estado;
 
-        $rol = new Rol; // instancio el la clase rol y creo un nuevo objeto ()
-        $rol->nombre_roles = $request->nombre_roles;
+        $pedido->save();
 
-        $rol->save(); // guardo esa instancia en la tabla de la bbdd
-
-        //return redirect()->route('DONDELOQUERAMOSMANDAR')->with('success', 'Nuevo rol creado'); // página con mensaje de éxito
-
+        // return redirect()->route('usuario.index')->with('succes', 'Se ha creado el usuario');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $rol = Rol::findOrFail($id); // Encuentra o ¡MUERE! Si muere, muestra generalmente error 404 ("no encontrado")
-
-        return response()->json($rol);
-
-        //return view('roles.show', compact('rol')); // Retorno a la vista roles.show - envío los datos en la vble (objeto) rol
-
+        $pedido = Pedido::findOrFail($id);
+        return response()->json($pedido);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        $rol = Rol::findOrFail($id); // buscamos el rol
-
-        // if(!$rol) {
-        //     return redirect()->route('roles.index')->with('error', 'No se encuentra este Rol.'); // sino existe, mostramos error
-        // }
-
-        return view('roles.edit', compact('rol')); //mandamos el rol a la vista editar, un formulario prellenado con los datos a modificar (luego se guardarían con update)
+        $pedido = Pedido::findOrFail($id);
+        // return view('usuario.edit', compact('usuario'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nombre_roles' => 'required|string|max:255' // validación del campo
+            'id_usuario' => 'required|integer',
+            'fecha_pedido' => 'required|date',
+            'precio_total' => 'required|numeric',
+            'estado' => 'required|in:enviado,preparando,entregado,cancelado',
         ]);
+    
+        $pedido = Pedido::findOrFail($id);
+        $pedido->id_usuario = $request->id_usuario;
+        $pedido->fecha_pedido = $request->fecha_pedido;
+        $pedido->precio_total = $request->precio_total;
+        $pedido->estado = $request->estado;
 
-        $rol = Rol::find($id); // busco el rol por id y lo almaceno en la vble rol
-        if (!$rol){
-            return redirect()->route('roles.index')->with('error', 'No se encuentra este Rol'); 
-        }
+        $pedido->save();
 
-        $rol->nombre_roles = $request->nombre_roles; // actualizo los datos del objeto en el atributo indicado
-        $rol->save();
-
-        return redirect()->route('roles.index')->with('success', 'Se ha actualizado el Rol');
+        return response()->json(['message' => 'Pedido actualizado correctamente']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        $rol = Rol::find($id); //buscamos la id
+        $pedido = Pedido::findOrFail($id);
+        $pedido->delete();
 
-        if (!$rol){
-            return redirect()->route('roles.index')->with('error', 'No se ha encontrado este Rol'); //verificamos si existe, sino lanzamos error
-        }
-
-        $rol->delete(); // si exite lo borramos
-
-        return redirect()->route('roles.index')->with('success', 'Se ha eliminado el Rol'); //redirigimos al index al usuario (lista de roles, con un mensaje de éxito
+        return response()->json(['message' => 'Pedido eliminado correctamente']);
     }
 }
