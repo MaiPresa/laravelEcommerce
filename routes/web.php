@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/carrito', function () {
+    return view('shoping-cart');
+});
+
+Route::post('/carrito', 'nombreControlador@store');

@@ -11,6 +11,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         <link href="{{ asset('css/global.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/shoping-cart.css') }}">
 
 
         <!-- Styles -->
@@ -20,9 +22,98 @@
     </head>
     <body>
 
-        <x-header />
-        <x-home />
-        <x-footer />
+        <div class="menuContainer">
+            <x-shoping-nav-bar />
+            <h2>Revisa la compra</h2>
 
+            <div class="cardContainer">
+                
+            </div>
+            <x-total-shoping-nav />
+
+            <div class="marginBox" ></div>
+        </div>
+    
     </body>
 </html>
+
+
+
+<script>
+    const storedForm = localStorage.getItem("form");
+    const cardContainer = document.querySelector('.cardContainer');
+    
+    let form = {};
+
+    if (storedForm) {
+      form = JSON.parse(storedForm);
+    }
+
+    Object.keys(form).map((key) => {
+        let objeto = form[key];
+        console.log(objeto);
+        // Crea un nuevo elemento div para contener el componente
+        const container = document.createElement('div');
+
+        // Genera el HTML correspondiente al componente x-card
+        container.innerHTML = `<x-card 
+            key="${key}" 
+            dataId="${objeto.dataId}" 
+            title="${objeto.title}" 
+            numero="${objeto.numero}" 
+        />`;
+
+        // Agrega el componente al contenedor
+        cardContainer.appendChild(container);
+    })
+
+
+
+    const cards = document.querySelectorAll('.cardFood');
+
+    cards.forEach((card) => {
+        const numeroElement = card.querySelector('.numero');
+        const restarButton = card.querySelector('.restar');
+        const sumarButton = card.querySelector('.sumar');
+
+        const dataId = card.getAttribute('data-id'); 
+        const cardId = card.getAttribute('id'); 
+        const title = card.getAttribute('title');
+
+        let numero = 0;
+
+
+        if(form[cardId]){
+        numero = form[cardId].numero;
+        numeroElement.textContent = numero;
+        }
+
+
+        restarButton.addEventListener('click', () => {
+            if(numero > 0) {
+                numero--;
+                numeroElement.textContent = numero;
+
+                // Guarda la cantidad en el localStorage
+
+                form[cardId] = {numero, dataId, title};
+                localStorage.setItem("form", JSON.stringify(form));
+
+
+            }
+        });
+
+        sumarButton.addEventListener('click', () => {
+        numero++;
+        numeroElement.textContent = numero;
+
+        // Guarda la cantidad en el localStorage
+
+                form[cardId] = {numero, dataId, title};
+                localStorage.setItem("form", JSON.stringify(form));
+
+        });
+
+    });
+</script>
+

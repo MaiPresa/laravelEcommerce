@@ -1,0 +1,76 @@
+.cardFood {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    border-radius: 8px;
+    overflow: hidden;
+
+    background-color: white;
+}
+
+.cardFood img {
+    max-width: 123px;
+    width: 100%;
+    height: auto;
+}
+
+
+.cardFood .foodInfo {
+    padding: 0 16px;
+
+    height: 100%;
+    width: 100%;
+}
+
+.foodInfo .titleContainer {
+    border-bottom: 1px solid silver;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.foodInfo .priceContainer {
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.priceContainer .amountButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.amountButton button {
+    background-color: inherit;
+    border: 1px solid silver;
+
+    height: 30px;
+    width: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.amountButton p {
+    background-color: silver;
+
+    height: 30px;
+    width: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
