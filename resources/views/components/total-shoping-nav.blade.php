@@ -57,7 +57,7 @@
 
             for (const key in form) {
                 if (form.hasOwnProperty(key)) {
-                    total += form[key].numero;
+                    total += form[key].precio;
                 }
             }
             document.getElementById("total").textContent = `${total}€`;

@@ -25,6 +25,7 @@
         <div class="menuContainer">
             <x-shoping-nav-bar />
             <h2>Revisa la compra</h2>
+            <!-- <a href="{{ route('platos.index') }}">Ver Platos</a> -->
 
             <div class="cardContainer">
                 
@@ -57,10 +58,13 @@
 
         // Genera el HTML correspondiente al componente x-card
         container.innerHTML = `<x-card 
-            key="${key}" 
-            dataId="${objeto.dataId}" 
-            title="${objeto.title}" 
+            id="${objeto.id_plato}" 
+            idPlato="${objeto.id_plato}"
+            idCategoria="${objeto.id_categoria}" 
+            nombrePlato="${objeto.nombre_plato}" 
             numero="${objeto.numero}" 
+            imagen="${objeto.imagen}" 
+            precio="${objeto.precio}" 
         />`;
 
         // Agrega el componente al contenedor
@@ -76,15 +80,18 @@
         const restarButton = card.querySelector('.restar');
         const sumarButton = card.querySelector('.sumar');
 
-        const dataId = card.getAttribute('data-id'); 
-        const cardId = card.getAttribute('id'); 
-        const title = card.getAttribute('title');
+
+        const id_categoria = parseInt(card.getAttribute('idCategoria'));
+        const id_plato = parseInt(card.getAttribute('idPlato')) 
+        const nombre_plato = card.getAttribute('nombrePlato');
+        const imagen = card.getAttribute('imagen');
+        const precio = parseFloat(card.getAttribute('precio'));
 
         let numero = 0;
 
 
-        if(form[cardId]){
-        numero = form[cardId].numero;
+        if(form[id_plato]){
+        numero = form[id_plato].numero;
         numeroElement.textContent = numero;
         }
 
@@ -96,7 +103,7 @@
 
                 // Guarda la cantidad en el localStorage
 
-                form[cardId] = {numero, dataId, title};
+                form[id_plato] = {numero, id_categoria, nombre_plato, precio, imagen, id_plato};
                 localStorage.setItem("form", JSON.stringify(form));
 
 
@@ -109,8 +116,8 @@
 
         // Guarda la cantidad en el localStorage
 
-                form[cardId] = {numero, dataId, title};
-                localStorage.setItem("form", JSON.stringify(form));
+        form[id_plato] = {numero, id_categoria, nombre_plato, precio, imagen, id_plato};
+        localStorage.setItem("form", JSON.stringify(form));
 
         });
 

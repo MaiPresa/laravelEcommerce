@@ -8,19 +8,25 @@ use Illuminate\View\Component;
 
 class Card extends Component
 {
-    public $key;
-    public $dataId;
-    public $title;
+    public $id_categoria;
+    public $precio;
+    public $nombre_plato;
     public $numero;
+    public $imagen;
+    public $id;
+    public $id_plato;
     /**
      * Create a new component instance.
      */
-    public function __construct($key, $dataId, $title, $numero=0)
+    public function __construct($idCategoria, $precio, $nombrePlato, $numero=0, $imagen, $id, $idPlato)
     {
-        $this -> key=$key;
-        $this -> dataId=$dataId;
-        $this -> title=$title;
+        $this -> id_categoria=$idCategoria;
+        $this -> precio=$precio;
+        $this -> nombre_plato=$nombrePlato;
         $this -> numero=$numero;
+        $this -> imagen=$imagen;
+        $this -> id=$id;
+        $this -> id_plato=$idPlato;
     }
 
     /**

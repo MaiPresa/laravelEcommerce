@@ -1,15 +1,14 @@
 <link rel="stylesheet" href="{{ asset('css/card.css') }}">
 
 
-<div class="cardFood" id={{$key}} data-id={{$dataId}} title={{$title}} numero={{$numero}}>
-    <img src="{{ asset('images/fotoFastFood.jpg') }}" alt="Foto Hamburguesa">
+<div class="cardFood" id={{$id_categoria}} idCategoria={{$id_categoria}}  idPlato={{$id_plato}} nombrePlato={{$nombre_plato}} numero={{$numero}} imagen={{$imagen}} precio={{$precio}}>
+    <img src="{{ asset($imagen) }}" alt="Foto Hamburguesa">
     <div class="foodInfo">
         <div class="titleContainer">
-            <h3>{{$title}}</h3>
-            <!-- <p>Con patatas</p> -->
+            <h3>{{$nombre_plato}}</h3>
         </div>
         <div class="priceContainer">
-            <p>8.00€</p>
+            <p>{{$precio}}€</p>
             <div class="amountButton">
                 <button class="restar">-</button><p class="numero">{{$numero}}</p><button class="sumar">+</button>
             </div>
