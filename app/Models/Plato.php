@@ -11,6 +11,12 @@ class Plato extends Model
     public $timestamps = false; 
     protected $primaryKey = 'id_plato';
 
+    protected $primaryKey = 'id_plato';
+    public $timestamps = false;
+
+    public $timestamps = false; 
+    protected $primaryKey = 'id_plato';
+
     public function pedidos(){
         return $this->belongsToMany(Pedido::class, 'plato_pedido', 'id_plato', 'id_pedido')->withPivot('cantidad_platos');
     }

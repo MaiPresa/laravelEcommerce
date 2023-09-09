@@ -13,9 +13,9 @@ class PlatoPedidoTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('pedido_plato')->insert([
-            ['id_pedido' => 1, 'id_plato' => 9, 'cantidad_platos' => 2],
-            ['id_pedido' => 2, 'id_plato' => 12, 'cantidad_platos' => 1],
-            ['id_pedido' => 2, 'id_plato' => 10, 'cantidad_platos' => 3],
+            ['id_pedido' => 7, 'id_plato' => 1, 'cantidad_platos' => 2],
+            ['id_pedido' => 7, 'id_plato' => 5, 'cantidad_platos' => 1],
+            ['id_pedido' => 8, 'id_plato' => 7, 'cantidad_platos' => 3],
         ]);
     }
 }
