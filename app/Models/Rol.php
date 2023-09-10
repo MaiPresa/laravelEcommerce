@@ -5,12 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Rol extends Model
 {
     use HasFactory;
+    public $timestamps = false; 
+    protected $primaryKey = 'id_roles';
+    protected $table = 'roles';
+
+    protected $table = 'roles'; //sino se lo indica por convención laravel usa el plural de rol -> rols XD
+    protected $primaryKey = 'id_roles';
+    public $timestamps = false; // desactivo marcas temporales
 
 public function usuarios(){
-    return $this->hasMany(usuario::class, 'id_roles');
+    return $this->hasMany(Usuario::class, 'id_roles');
 }
 
 }

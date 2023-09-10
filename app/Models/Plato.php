@@ -8,12 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Plato extends Model
 {
     use HasFactory;
+    public $timestamps = false; 
+    protected $primaryKey = 'id_plato';
 
     public function pedidos(){
-        return $this->belongsToMany(pedidos::class, 'plato_pedido', 'id_plato', 'id_pedido')->withPivot('cantidad_platos');
+        return $this->belongsToMany(Pedido::class, 'plato_pedido', 'id_plato', 'id_pedido')->withPivot('cantidad_platos');
     }
 
     public function categorias(){
-        return $this->belongsTo(categoria::class, 'id_categorias');
+        return $this->belongsTo(Categoria::class, 'id_categorias');
     }
 }

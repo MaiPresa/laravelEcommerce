@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pedidos', function (Blueprint $table) {
-            $table->bigInteger('id_pedido');
-            $table->unsignedBigInteger('id_usuario', 255);
+            $table->id('id_pedido');
+            $table->unsignedBigInteger('id_usuario');
+            $table->foreign('id_usuario')->references('id_usuarios')->on('usuarios');
             $table->dateTime('fecha_pedido');
             $table->float('precio_total');
-            $table->string('pedido', 255);
+            $table->enum('estado', ['enviado', 'preparando', 'entregado', 'cancelado'])->default('preparando');
         });
     }
 
@@ -28,3 +29,4 @@ return new class extends Migration
         Schema::dropIfExists('pedidos');
     }
 };
+

@@ -11,6 +11,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         <link href="{{ asset('css/global.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/shoping-cart.css') }}">
 
 
         <!-- Styles -->
@@ -20,9 +22,105 @@
     </head>
     <body>
 
-        <x-header />
-        <x-home />
-        <x-footer />
+        <div class="menuContainer">
+            <x-shoping-nav-bar />
+            <h2>Revisa la compra</h2>
+            <!-- <a href="{{ route('platos.index') }}">Ver Platos</a> -->
 
+            <div class="cardContainer">
+                
+            </div>
+            <x-total-shoping-nav />
+
+            <div class="marginBox" ></div>
+        </div>
+    
     </body>
 </html>
+
+
+
+<script>
+    const storedForm = localStorage.getItem("form");
+    const cardContainer = document.querySelector('.cardContainer');
+    
+    let form = {};
+
+    if (storedForm) {
+      form = JSON.parse(storedForm);
+    }
+
+    Object.keys(form).map((key) => {
+        let objeto = form[key];
+        console.log(objeto);
+        // Crea un nuevo elemento div para contener el componente
+        const container = document.createElement('div');
+
+        // Genera el HTML correspondiente al componente x-card
+        container.innerHTML = `<x-card 
+            id="${objeto.id_plato}" 
+            idPlato="${objeto.id_plato}"
+            idCategoria="${objeto.id_categoria}" 
+            nombrePlato="${objeto.nombre_plato}" 
+            numero="${objeto.numero}" 
+            imagen="${objeto.imagen}" 
+            precio="${objeto.precio}" 
+        />`;
+
+        // Agrega el componente al contenedor
+        cardContainer.appendChild(container);
+    })
+
+
+
+    const cards = document.querySelectorAll('.cardFood');
+
+    cards.forEach((card) => {
+        const numeroElement = card.querySelector('.numero');
+        const restarButton = card.querySelector('.restar');
+        const sumarButton = card.querySelector('.sumar');
+
+
+        const id_categoria = parseInt(card.getAttribute('idCategoria'));
+        const id_plato = parseInt(card.getAttribute('idPlato')) 
+        const nombre_plato = card.getAttribute('nombrePlato');
+        const imagen = card.getAttribute('imagen');
+        const precio = parseFloat(card.getAttribute('precio'));
+
+        let numero = 0;
+
+
+        if(form[id_plato]){
+        numero = form[id_plato].numero;
+        numeroElement.textContent = numero;
+        }
+
+
+        restarButton.addEventListener('click', () => {
+            if(numero > 0) {
+                numero--;
+                numeroElement.textContent = numero;
+
+                // Guarda la cantidad en el localStorage
+
+                form[id_plato] = {numero, id_categoria, nombre_plato, precio, imagen, id_plato};
+                localStorage.setItem("form", JSON.stringify(form));
+
+
+            }
+        });
+
+        sumarButton.addEventListener('click', () => {
+        numero++;
+        numeroElement.textContent = numero;
+
+        // Guarda la cantidad en el localStorage
+
+        form[id_plato] = {numero, id_categoria, nombre_plato, precio, imagen, id_plato};
+        localStorage.setItem("form", JSON.stringify(form));
+
+        });
+
+    });
+</script>
+
