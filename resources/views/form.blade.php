@@ -75,7 +75,7 @@
                 })
 
             .then((res) => {
-                
+                console.log('id_usr', res.id_usuario);
                 const storedForm = localStorage.getItem("form");
 
                 let form = {};
@@ -95,7 +95,7 @@
                         'X-CSRF-TOKEN': csrfToken,
                     },
                     body: JSON.stringify({
-                        usuario: 1,
+                        id_usuario: res.id_usuario,
                         pedido: formArray
                     })
                 })

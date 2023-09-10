@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\Models\Plato_pedido;
 use Illuminate\Http\Request;
 
 class PedidosController extends Controller
@@ -22,10 +23,10 @@ class PedidosController extends Controller
     }
 
     public function storePedido(Request $request) {
-        $res = new \stdClass(); // Crear un objeto JSON vacío
+        $res = new \stdClass(); 
 
         try {
-            $pedidoData = $request->input('pedido'); // Obtener los datos de pedido de la solicitud
+            $pedidoData = $request->input('pedido');
             
             $sumaPedido = 0;
             foreach ($pedidoData as $pedido) {
@@ -33,13 +34,23 @@ class PedidosController extends Controller
             }
     
             $pedido = new Pedido();
-            $pedido->id_usuario = $request->input('usuario');
-            $pedido->fecha_pedido = now(); // Utilizar el método now() para obtener la fecha actual
+            $pedido->id_usuario = $request->input('id_usuario');
+            $pedido->fecha_pedido = now(); 
             $pedido->precio_total = $sumaPedido;
             $pedido->estado = 'preparando';
     
             $pedido->save();
     
+            foreach ($pedidoData as $pedido_data) {
+                $plato_pedido = new Plato_pedido();
+                
+                $plato_pedido->id_pedido = $pedido->id_pedido;
+                $plato_pedido->id_plato = $pedido_data['id_plato'];
+                $plato_pedido->cantidad_platos = $pedido_data['numero'];
+                $plato_pedido->save();
+                $res->plato = $plato_pedido;
+            }
+
             $res->pedido = $pedido;
         } catch (\Exception $e) {
             $res->error = $e->getMessage();
