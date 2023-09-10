@@ -47,7 +47,7 @@ class PlatoPedidoController extends Controller
 //         $plato = Plato::find($platoId);
 //         $pedido = Pedido::find($pedidoId);
 
-//         $plato->pedido_plato()->attach($pedido);
+//         $plato->plato_pedido()->attach($pedido);
 
 //         // Realizar cualquier otra acción o redireccionar según sea necesario
 //     }
@@ -63,7 +63,7 @@ class PlatoPedidoController extends Controller
 //         $plato = Plato::find($platoId);
 //         $segundoModelo = Pedido::find($pedidoId);
 
-//         $plato->pedido_plato()->detach($pedido);
+//         $plato->plato_pedido()->detach($pedido);
 
 //         // Realizar cualquier otra acción o redireccionar según sea necesario
 //     }
