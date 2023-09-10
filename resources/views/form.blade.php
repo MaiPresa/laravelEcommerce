@@ -12,8 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         <link href="{{ asset('css/global.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/shoping-cart.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 
 
         <!-- Styles -->
@@ -24,6 +23,10 @@
 
     <body>
         
+        <button onclick="gotoCarrito()" class="btnStyle">< Volver</button>
+
+        <p class="formTitle">Introduce los datos por favor</p>
+
         <form id="myform">
   
             <input placeholder="Nombre y apellidos" type="text" name="nombre_usuarios" id="nombre" required>
@@ -46,6 +49,11 @@
     </body>
 
     <script>
+
+        function gotoCarrito() {
+            window.location.href = "{{ url('/carrito') }}";
+        }
+
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         function submitForm(e) {

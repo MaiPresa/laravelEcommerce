@@ -25,7 +25,6 @@ Route::get('/carrito', function () {
     return view('shoping-cart');
 });
 
-Route::post('/carrito', 'nombreControlador@store');
 
 // Route::get('/platos', 'PlatoController@index')->name('platos');
 // Route::get('/platos', [PlatoController::class, 'index']);

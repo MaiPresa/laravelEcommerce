@@ -41,6 +41,7 @@ class PedidosController extends Controller
     
             $pedido->save();
     
+            $res->plato = [];
             foreach ($pedidoData as $pedido_data) {
                 $plato_pedido = new Plato_pedido();
                 
@@ -48,7 +49,7 @@ class PedidosController extends Controller
                 $plato_pedido->id_plato = $pedido_data['id_plato'];
                 $plato_pedido->cantidad_platos = $pedido_data['numero'];
                 $plato_pedido->save();
-                $res->plato = $plato_pedido;
+                $res->plato[] = $plato_pedido ;
             }
 
             $res->pedido = $pedido;

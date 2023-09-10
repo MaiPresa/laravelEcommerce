@@ -22,30 +22,17 @@
             <p id="total"></p>
         </div>
 
-        <button onclick="storeForm()" >Realizar compra</button>
+        <button onclick="gotoForm()" >Realizar compra</button>
 
 </div>
 
 
 <script>
-    
 
-    function storeForm() {
-        fetch(window.location.href, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(form)
-        })
-        .then(response => response.json())
-        .then((data) => {
-            if(data) {
-                deleteCart()
-            }
-        })
+    function gotoForm() {
+        window.location.href = "{{ url('/formulario') }}";
     }
-
+    
 
     function updateTotal() {
             let total = 0;
