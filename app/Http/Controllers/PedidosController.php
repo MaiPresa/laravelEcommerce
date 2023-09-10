@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 
-class PedidoController extends Controller
+class PedidosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,6 +20,35 @@ class PedidoController extends Controller
     {
         // return view('usuarios.create);
     }
+
+    public function storePedido(Request $request) {
+        $res = new \stdClass(); // Crear un objeto JSON vacío
+
+        try {
+            $pedidoData = $request->input('pedido'); // Obtener los datos de pedido de la solicitud
+            
+            $sumaPedido = 0;
+            foreach ($pedidoData as $pedido) {
+                $sumaPedido += $pedido['precio'] * $pedido['numero'];
+            }
+    
+            $pedido = new Pedido();
+            $pedido->id_usuario = $request->input('usuario');
+            $pedido->fecha_pedido = now(); // Utilizar el método now() para obtener la fecha actual
+            $pedido->precio_total = $sumaPedido;
+            $pedido->estado = 'preparando';
+    
+            $pedido->save();
+    
+            $res->pedido = $pedido;
+        } catch (\Exception $e) {
+            $res->error = $e->getMessage();
+        }
+    
+        return response()->json($res);
+    }
+    
+
 
     public function store(Request $request)
     {

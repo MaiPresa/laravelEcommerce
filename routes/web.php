@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PlatoController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\PedidosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,11 @@ Route::post('/carrito', 'nombreControlador@store');
 // Route::get('/platos', [PlatoController::class, 'index']);
 Route::get('/platos', [PlatoController::class, 'index'])->name('platos.index');
 
+
+Route::get('/formulario', function () {
+    return view('form');
+});
+
+Route::post('/formulario', [UsuarioController::class, 'store'])->name('usuario.store');
+
+Route::post('/carrito', [PedidosController::class, 'storePedido'])->name('pedido.storePedido');
