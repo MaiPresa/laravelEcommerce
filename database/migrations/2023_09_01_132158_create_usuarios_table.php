@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->bigInteger('id_usuarios');
-            $table->unsignedBigInteger('id_roles', 255);
+            $table->id('id_usuarios');
+            $table->unsignedBigInteger('id_roles');
+            $table->foreign('id_roles')->references('id_roles')->on('roles');
             $table->string('nombre_usuarios', 255);
             $table->string('contrasena', 255);
             $table->string('email', 255);
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('ciudad', 255);
             $table->dateTime('fecha_registro');
         });
+        
     }
 
     /**

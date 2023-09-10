@@ -11,9 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('platos', function (Blueprint $table) {
-            $table->string('imagen', 255)->change();
-        });
+        Schema::rename('pedido_plato', 'plato_pedido');
     }
 
     /**
@@ -21,8 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('platos', function (Blueprint $table) {
-            $table->binary('imagen')->change();
-        });
+        Schema::rename('plato_pedido', 'pedido_plato');
     }
 };

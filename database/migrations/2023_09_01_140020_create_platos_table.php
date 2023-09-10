@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('platos', function (Blueprint $table) {
-            $table->bigInteger('id_plato');
+            $table->id('id_plato');
             $table->unsignedBigInteger('id_categoria');
+            $table->foreign('id_categoria')->references('id_categoria')->on('categorias');
             $table->string('nombre_plato', 255);
             $table->string('descripcion', 1000);
             $table->float('precio');
-            $table->binary('imagen');
+            $table->string('imagen', 255);
         });
     }
 
