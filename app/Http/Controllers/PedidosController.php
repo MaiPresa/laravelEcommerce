@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\Models\Plato_pedido;
 use Illuminate\Http\Request;
 
-class PedidoController extends Controller
+class PedidosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,6 +21,46 @@ class PedidoController extends Controller
     {
         // return view('usuarios.create);
     }
+
+    public function storePedido(Request $request) {
+        $res = new \stdClass(); 
+
+        try {
+            $pedidoData = $request->input('pedido');
+            
+            $sumaPedido = 0;
+            foreach ($pedidoData as $pedido) {
+                $sumaPedido += $pedido['precio'] * $pedido['numero'];
+            }
+    
+            $pedido = new Pedido();
+            $pedido->id_usuario = $request->input('id_usuario');
+            $pedido->fecha_pedido = now(); 
+            $pedido->precio_total = $sumaPedido;
+            $pedido->estado = 'preparando';
+    
+            $pedido->save();
+    
+            $res->plato = [];
+            foreach ($pedidoData as $pedido_data) {
+                $plato_pedido = new Plato_pedido();
+                
+                $plato_pedido->id_pedido = $pedido->id_pedido;
+                $plato_pedido->id_plato = $pedido_data['id_plato'];
+                $plato_pedido->cantidad_platos = $pedido_data['numero'];
+                $plato_pedido->save();
+                $res->plato[] = $plato_pedido ;
+            }
+
+            $res->pedido = $pedido;
+        } catch (\Exception $e) {
+            $res->error = $e->getMessage();
+        }
+    
+        return response()->json($res);
+    }
+    
+
 
     public function store(Request $request)
     {

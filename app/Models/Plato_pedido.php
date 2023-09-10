@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Plato_pedido extends Model
 {
     use HasFactory;
+    protected $table = 'plato_pedido'; 
+    public $timestamps = false; 
 }
